@@ -34,11 +34,19 @@
   </table>
 </div>
 
-<div class="table-event-wrapper">
+<div class="table-event-wrapper" *ngIf="filteredEvents && filteredEvents.length > 0">
   <h3>Información Específica</h3>
   <div *ngFor="let event of filteredEvents">
-    <b>Evento:</b> {{event.name}} ({{event.createdDate}})
-
+    <p>
+        <b>Evento:</b> {{event.name}} ({{event.createdDate}})
+        <span class="event-header">
+            <button (click)="onDeleteEvent(event)">
+                <i class="fa fa-trash" aria-hidden="true" title="Eliminar Evento"></i>
+            </button>
+        </span>
+        
+    </p>
+    
     <table class="table table-striped table-condensed">
         <tr>
             <th class="col-xs-2 col-sm-1">#</th>

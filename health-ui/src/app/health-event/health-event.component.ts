@@ -18,13 +18,15 @@ import {SurveyService} from '../survey/survey.service';
   styleUrls: ['./health-event.component.css']
 })
 export class HealthEventComponent extends AbstractComponent {
-  private patient:Patient;
+  patient:Patient;
+  filteredEvents:HealthEvent[];
+  newEvent: HealthEvent;
+  selectedSpecialty:Specialty;
   private surveys:Survey[];
   private specialties:Specialty[];
-  private selectedSpecialty:Specialty;
   private filteredBasicSurveys:Survey[];
-  private filteredEvents:HealthEvent[];
-  private newEvent: HealthEvent;
+  
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -126,6 +128,20 @@ export class HealthEventComponent extends AbstractComponent {
         this.buildSurveysInfo(this.patient.id);
       }
     );
+  }
+
+  onDeleteEvent(event:HealthEvent) {
+    if(confirm("Está seguro de eliminar el evento?")) {
+      this.handleRequest(
+        this.healthEventService.delete(this.patient.id, event),
+        resp => {
+          if(resp.ok) {
+            this.buildSurveysInfo(this.patient.id);
+          }
+        },
+        error => console.log("Error deletingEvent ", error)
+      );
+    }
   }
 
   getSurveyStateStyle(state:string) {

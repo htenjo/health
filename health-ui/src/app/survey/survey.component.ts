@@ -15,8 +15,8 @@ import {Survey} from './survey.model';
   encapsulation: ViewEncapsulation.None
 })
 export class SurveyComponent extends AbstractComponent implements OnInit {
+  surveyContainerName:string = 'surveyElement';
   private survey:Survey;
-  private surveyContainerName:string = 'surveyElement';
   private patientId:number;
   private surveyModel:SurveyApi.ReactSurveyModel;
 
